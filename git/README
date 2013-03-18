@@ -1,0 +1,14 @@
+
+# Date: 2013-03-17
+
+.gitignore
+   -- sample .gitignore file
+
+.gitconfig
+   -- sample git configuration file
+
+backup.sh
+   -- copy local .gitconfig file to repo
+
+restore.sh
+   -- restore: copy .gitconfig file to local 
