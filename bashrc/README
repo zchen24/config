@@ -1,0 +1,17 @@
+
+# Date: 2013-03-17
+
+.bashrc
+   -- bashrc config file
+
+.bash_aliases
+   -- some aliases definition
+
+.bash_zihan 
+   -- other bash configuration
+
+backup.sh
+   -- copy local .gitconfig file to repo
+
+restore.sh
+   -- restore: copy .gitconfig file to local 

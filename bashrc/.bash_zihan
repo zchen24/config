@@ -1,0 +1,18 @@
+
+# Xilinx bash file
+function loadXilinx(){
+    if [ -f /opt/Xilinx/12.4/ISE_DS/settings64.sh ]; then
+       . /opt/Xilinx/12.4/ISE_DS/settings64.sh
+    fi
+}
+
+
+# JHU Computer IP Address
+export lmtm=10.162.34.41
+export lwam=10.162.34.19
+export lvision=10.162.34.23
+export lnail=10.162.34.82
+export lssm=10.162.34.131
+
+
+
