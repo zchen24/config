@@ -1,21 +1,3 @@
-alias sinstall='sudo apt-get install'
-alias ssearch='apt-cache search'
-alias sremove='sudo apt-get remove'
-alias nemacs='emacs -nw'
-alias semacs='sudo emacs -nw'
-alias matlab='matlab -nodisplay'
-
-# Useful Aliases
-alias resource-bash='. ~/.bashrc'
-alias rebash='nemacs ~/.bashrc'
-
-
-
-# JHConnect VPN 
-alias jconnect='jhu_nc.sh start'
-alias djconnect='jhu_nc.sh stop'
-
-# apparix bookmark system
 function to () {
    if test "$2"; then
      cd "$(apparix "$1" "$2" || echo .)";
@@ -67,30 +49,3 @@ function _apparix_aliases ()
 # command to register the above to expand when the 'to' command's args are
 # being expanded
 complete -F _apparix_aliases to
-
-
-
-# rebuild source code 
-function crebuild {
-    rm -rf build
-    mkdir build
-    cd build
-    ccmake ../source
-}
-
-
-# download cisst
-function crecisst {
-    mkdir source
-    mkdir build
-    cd source
-    svn co https://svn.lcsr.jhu.edu/cisst/trunk .
-    cd ../build
-    ccmake ../source
-}
-
-
-
-
-
-
