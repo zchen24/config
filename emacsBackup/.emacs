@@ -57,6 +57,8 @@
 (tool-bar-mode nil)
 
 ;; set auto column change
+(global-set-key (kbd "C-c q") 'auto-fill-mode)
+(global-set-key (kbd "C-c p") 'fill-paragraph)
 (setq default-fill-column 80)
 
 
@@ -137,7 +139,7 @@
 (setq default-tab-width 4)
 (setq c-basic-offset 4)
 (setq-default indent-tabs-mode nil)
-
+(define-key global-map (kbd "RET") 'newline-and-indent)
 
 
 ;;;;;;; set title "title@Emacs";;
@@ -328,3 +330,92 @@
       (doxymacs-font-lock)))
 (add-hook 'font-lock-mode-hook 'my-doxymacs-font-lock-hook)
 (setq doxymacs-doxygen-style "Qt")
+
+
+;;; Recent opened file
+(require 'recentf)
+(recentf-mode 1)
+(setq recentf-max-menu-items 25)
+(global-set-key "\C-x\ \C-r" 'recentf-open-files)
+
+
+;;; c-perl mode 
+(defalias 'perl-mode 'cperl-mode)
+
+(add-hook 'cperl-mode-hook
+          (lambda()
+            (require 'perl-completion)
+            (perl-completion-mode t)))
+
+
+
+
+;;;;;;;;;;;;;; Auto-complete ;;;;;;;;;;;;;;;
+
+;;; auto-complete mode
+; Tutorial:
+; http://www.youtube.com/watch?v=rGVVnDxwJYE
+(add-to-list 'load-path "~/.emacs.d/")
+(require 'auto-complete-config)
+(add-to-list 'ac-dictionary-directories "~/.emacs.d//ac-dict")
+(ac-config-default)
+; key-binding
+(define-key ac-mode-map (kbd "M-/") 'auto-complete )
+
+(require 'auto-complete)
+(setq global-auto-complete-mode t)
+
+
+
+;;;;;;;;;;;;;;;; Python ;;;;;;;;;;;;;;;;;;;;;;
+
+(autoload 'python-mode "python-mode" "Python Mode." t)
+
+(add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode))
+(add-to-list 'interpreter-mode-alist '("python" . python-mode))
+(require 'python-mode)
+(autoload 'pymacs-apply "pymacs")
+(autoload 'pymacs-call "pymacs")
+(autoload 'pymacs-eval "pymacs" nil t)
+(autoload 'pymacs-exec "pymacs" nil t)
+(autoload 'pymacs-load "pymacs" nil t)
+
+;;; ropemacs mode
+(setq ropemacs-enable-shortcuts nil)
+(setq ropemacs-local-prefix "C-c C-p")
+(require 'pymacs)
+(pymacs-load "ropemacs" "rope-")
+(setq ropemacs-enable-autoimport t)
+
+
+
+;; ;;;;;;;;;;;;;;; YASnippet ;;;;;;;;;;;;;;;;;;;;;;
+;; (add-to-list 'load-path "~/.emacs.d/plugins/yasnippet")
+;; (require 'yasnippet)
+;; (yas-global-mode 1)
+
+;; ; personal snippet
+;; (setq yas/root-directory "~/.emacs.d/snippets")
+;; (yas/load-directory "~/.emacs.d/snippets")
+;; (yas/load-directory "~/.emacs.d/plugins/yasnippet/snippets")
+
+
+
+(setq scroll-step            1
+      scroll-conservatively  10000)
+
+
+
+;;;;;;;;;;;;;; MATLAB ;;;;;;;;;;;;;;;;;;;;;;;;;
+(autoload 'matlab-mode "matlab" "Matlab Editing Mode" t)
+(add-to-list
+ 'auto-mode-alist
+ '("\\.m$" . matlab-mode))
+(setq matlab-indent-function t)
+(setq matlab-shell-command "matlab")
+
+
+
+
+
+
