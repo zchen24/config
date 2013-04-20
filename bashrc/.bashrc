@@ -136,8 +136,9 @@ export PATH=$PATH:/usr/local/matlabR2010a/bin
 
 # ROS RELATED
 #source /opt/ros/fuerte/setup.bash
-#source ~/fuerte/setup.bash
-source ~/ros/groovy/setup.bash
+if [ -f ~/ros/groovy/setup.bash ]; then
+    source ~/ros/groovy/setup.bash
+fi
 export ROS_WORKSPACE=~/ros/groovy
 
 export EDITOR='emacs -nw'
