@@ -4,6 +4,7 @@ alias sremove='sudo apt-get remove'
 alias nemacs='emacs -nw'
 alias semacs='sudo emacs -nw'
 alias matlab='matlab -nodisplay'
+alias trash='trash-put'
 
 # Useful Aliases
 alias resource-bash='. ~/.bashrc'
@@ -88,7 +89,6 @@ function crecisst {
     cd ../build
     ccmake ../source
 }
-
 
 
 

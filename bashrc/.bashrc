@@ -130,28 +130,44 @@ fi
 
 
 
-# add matlab to path
-export PATH=$PATH:/usr/local/matlabR2010a/bin
-
-
 # ROS RELATED
 #source /opt/ros/fuerte/setup.bash
-if [ -f ~/ros/groovy/setup.bash ]; then
-    source ~/ros/groovy/setup.bash
-fi
+#source ~/fuerte/setup.bash
+source ~/ros/groovy/setup.bash
 export ROS_WORKSPACE=~/ros/groovy
+
+alias rosresetup="source ./setup.sh"
 
 export EDITOR='emacs -nw'
 export ROS_PARALLEL_JOBS='-j6 -l6'
-export ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH:~/dev/wyvern_lair
-export ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH:~/dev/wyvern_lair/ros
-
+# export ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH:~/dev/wyvern_lair
+# export ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH:~/dev/wyvern_lair/ros
 
 # LAIR 
-export LAIR_CONFIG_PATH=~/dev/wyvern_lair/lair/config
-export LAIR_APP_PATH=~/dev/wyvern_lair/lair/apps
-export LAIR_DATABASE_PATH=~/dev/wyvern_lair/lair/sample_images
-export LAIR_ROOT_PATH=~/dev/wyvern_lair/lair
+# export LAIR_CONFIG_PATH=~/dev/wyvern_lair/lair/config
+# export LAIR_APP_PATH=~/dev/wyvern_lair/lair/apps
+# export LAIR_DATABASE_PATH=~/dev/wyvern_lair/lair/sample_images
+# export LAIR_ROOT_PATH=~/dev/wyvern_lair/lair
+
+
+# ROS Setting
+export ROS_PACKAGE_PATH=/home/$USER/wall/ros_common:/home/$USER/wall/lair_workspace:$ROS_PACKAGE_PATH
+export ROS_PACKAGE_PATH=/home/zihan/dev/cisst/source/saw/components/sawROS:$ROS_PACKAGE_PATH
+
+
+# export ROS_HOME=/home/$USER/.ros
+#export ROS_IP=10.164.225.245
+# export ROS_IP=$(ifconfig  | grep 'inet addr:'| grep -v '127.0.0.1' | cut -d: -f2 | awk '{ print $1}')
+export ROS_HOSTNAME=localhost
+# export ROS_MASTER_URI=http://10.162.34.52:11311
+
+# LAIR Setting
+export LAIR_CONFIG_PATH=/home/$USER/wall/lair_workspace/lair_dev/lair_platform/config
+export LAIR_APP_PATH=/home/$USER/wall/lair_workspace/lair_dev/lair_platform/apps
+export LAIR_DATABASE_PATH=/home/$USER/wall/dev/lair/lair_image_database
+export LAIR_ROOT_PATH=/home/$USER/wall/lair_workspace/lair_dev/lair_platform
+
+
 
 
 # cdbuild
@@ -184,3 +200,14 @@ function ccmakeDropbox() {
     ccmake $sourcePath
 }
 
+
+# Xilinx
+function loadXilinx() {
+    if [ -f /opt/Xilinx/13.4/ISE_DS/settings64.sh ]; then
+        . /opt/Xilinx/13.4/ISE_DS/settings64.sh
+    fi
+}
+
+
+# for emacs color in terminal
+export TERM=xterm-256color
