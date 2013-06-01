@@ -133,10 +133,13 @@ fi
 # ROS RELATED
 #source /opt/ros/fuerte/setup.bash
 #source ~/fuerte/setup.bash
-source ~/ros/groovy/setup.bash
-export ROS_WORKSPACE=~/ros/groovy
 
-alias rosresetup="source ./setup.sh"
+if [ -f ~/ros/groovy/setup.bash ]; then
+    source ~/ros/groovy/setup.bash
+    export ROS_WORKSPACE=~/ros/groovy
+    alias rosresetup="source ~/ros/groovy/setup.bash"
+fi
+
 
 export EDITOR='emacs -nw'
 export ROS_PARALLEL_JOBS='-j6 -l6'
