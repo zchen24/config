@@ -17,3 +17,7 @@
 	unstage = reset HEAD --
 [color]
 	ui = true
+[merge]
+	tool = meld
+[diff]
+	tool = meld
