@@ -1,0 +1,14 @@
+<package>
+  <description brief="git">
+
+     git
+
+  </description>
+  <author>Zihan Chen</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/git</url>
+
+</package>
+
+
