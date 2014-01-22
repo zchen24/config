@@ -5,6 +5,7 @@
 ;; 'y' for 'yes', 'n' for 'no'
 (fset 'yes-or-no-p 'y-or-n-p)
 
+
 ;; hightlight current line
 (require 'hl-line)
 ;(global-hl-line-mode t)
@@ -141,21 +142,21 @@
 (setq-default indent-tabs-mode nil)
 (define-key global-map (kbd "RET") 'newline-and-indent)
 
+(defun set-4offset(&optional arg)
+  (interactive "p")
+  (setq default-tab-width 4)
+  (setq c-basic-offset 4)
+  )
+
+(defun set-2offset(&optional arg)
+  (interactive "p")
+  (setq default-tab-width 2)
+  (setq c-basic-offset 2)
+  )
 
 ;;;;;;; set title "title@Emacs";;
 (setq frame-title-format "%b@Emacs")
 
-
-(global-set-key (kbd "C-c C-w") 'copy-lines)
-(defun copy-lines(&optional arg)
-  (interactive "p")
-  (save-excursion
-    (beginning-of-line)
-    (set-mark (point))
-    (next-line arg)
-    (kill-ring-save (mark) (point))
-    )
-  )
 
 ;;;;;;; Copy n Line ;;;;;;;;;;;;;;;;;
 ;; C-c C-w copy 1 line, C-u 5 C-c C-w copy 5 lines
@@ -233,16 +234,9 @@
 
 ;;;;;;;;;;;; color-theme.el ;;;;;;;;;;;;
 ;; color theme
-;(require 'color-theme)
-;(color-theme-initialize)
-;(color-theme-comidia)
-;(color-theme-subdued)
-;(color-theme-oswald)
-;(color-theme-twilight)
-;(color-theme-arjen)
-;(color-theme-zenburn)
-;(Color-theme-gnome)
-;(color-theme-tango)
+(require 'color-theme)
+(color-theme-initialize)
+(color-theme-calm-forest)
 
 
 ;;;;;;;;;;;;; autopair.el ;;;;;;;;;;;;;;
@@ -286,40 +280,37 @@
 ;;;;;;;;;; Uncomment ;;;;;;;;;;;;;;;
 (global-set-key "\C-c\C-c" 'comment-region)
 (global-set-key "\C-c\C-y" 'uncomment-region)
-
+(fset 'cmr 'comment-region)
 
 ;;;;;;;;;;; Shortcut Keys ;;;;;;;;;;
 (global-set-key [f5] 'compile)
 (global-set-key [f8] 'calendar)
 (global-set-key [f9] 'list-bookmarks)
+(global-set-key [f10] 'speedbar)
 ;(global-set-key [f11] 'todo-mode)
 
 
 
-;;;;;;;;;;;; Ros emacs ;;;;;;;;;;;;;;;
-(push "~/.emacs.d/rosemacs" load-path) 
-
-;; Load the library and start it up
-;(require 'rosemacs)
-;(invoke-rosemacs)
-
-;; Optional but highly recommended: add a prefix for quick access
-;; to the rosemacs commands
-;(global-set-key "\C-x\C-r" ros-keymap)
-(put 'downcase-region 'disabled nil)
 
 
-;;; For Tex-View use Evince
+
+;;; For Tex-View use Okular
+(setq TeX-view-program-list
+      (quote (("Okular" "okular -unique %o#src:%n%b"))))
+
 (setq TeX-view-program-selection
-      '(((output-dvi style-pstricks)
-         "dvips and gv")
-        (output-dvi "Evince")
-        (output-pdf "Evince")
-        (output-html "xdg-open"))
-      )
+      `(((output-dvi style-pstricks) "dvips and gv")
+        (output-dvi "Okular")
+        (output-pdf "Okular")
+        (output-html "xdg-open")))
+
+(defun my-tex-mode-hook()
+  "my tex-mode hook"
+  (tex-pdf-mode))
 
 (setq TeX-auto-save t)
 (add-hook 'LaTeX-mode-hook 'visual-line-mode)
+(add-hook 'LaTeX-mode-hook 'my-tex-mode-hook)
 
 
 ;;; doxymacs support
@@ -330,13 +321,15 @@
       (doxymacs-font-lock)))
 (add-hook 'font-lock-mode-hook 'my-doxymacs-font-lock-hook)
 (setq doxymacs-doxygen-style "Qt")
+(setq user-mail-address "zihan.chen@jhu.edu")  ;; default email
 
 
 ;;; Recent opened file
 (require 'recentf)
 (recentf-mode 1)
 (setq recentf-max-menu-items 25)
-(global-set-key "\C-x\ \C-r" 'recentf-open-files)
+(global-set-key "\C-c\ \C-r" 'recentf-open-files)
+(fset 'rof 'recentf-open-files)
 
 
 ;;; c-perl mode 
@@ -360,7 +353,7 @@
 (add-to-list 'ac-dictionary-directories "~/.emacs.d//ac-dict")
 (ac-config-default)
 ; key-binding
-(define-key ac-mode-map (kbd "M-/") 'auto-complete )
+;(define-key ac-mode-map (kbd "M-/") 'auto-complete )
 
 (require 'auto-complete)
 (setq global-auto-complete-mode t)
@@ -399,6 +392,11 @@
 ;; (yas/load-directory "~/.emacs.d/snippets")
 ;; (yas/load-directory "~/.emacs.d/plugins/yasnippet/snippets")
 
+(add-to-list 'load-path "~/.emacs.d/plugins/jade")
+(require 'sws-mode)
+(require 'jade-mode)
+(add-to-list 'auto-mode-alist '("\\.styl$" . sws-mode))
+(add-to-list 'auto-mode-alist '("\\.jade$" . jade-mode))
 
 
 (setq scroll-step            1
@@ -417,5 +415,126 @@
 
 
 
+(show-paren-mode 1)
 
 
+
+
+;;; For mixed dos/unix style CF ;;;
+(defun remove-dos-eol ()
+  "Do not show ^M in files containing mixed UNIX and DOS line endings."
+  (interactive)
+  (setq buffer-display-table (make-display-table))
+  (aset buffer-display-table ?\^M []))
+
+
+
+;;;;;;;;;;;; Ros emacs ;;;;;;;;;;;;;;;
+;; Load the library and start it up
+(require 'rosemacs)
+(invoke-rosemacs)
+
+;; Optional but highly recommended: add a prefix for quick access
+;; to the rosemacs commands
+(global-set-key "\C-x\C-r" ros-keymap)
+
+(custom-set-variables
+  ;; custom-set-variables was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+ '(rng-schema-locating-files
+   (quote ("/usr/share/emacs/site-lisp/rosemacs-el//rng-schemas.xml"
+           "schemas.xml"
+           "/usr/share/emacs/23.3/etc/schema/schemas.xml"))))
+
+(custom-set-faces
+  ;; custom-set-faces was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+ )
+
+
+;;;; switch between header/source file ;;;;;
+(add-hook 'c-mode-common-hook
+          (lambda()
+            (local-set-key  (kbd "C-c o") 'ff-find-other-file)))
+
+(setq ff-search-directories
+      '("." "../src" "../../src" "../include"))
+
+
+
+;;;; Markdown files ;;;;
+(autoload 'markdown-mode "markdown-mode"
+  "Major mode for editing Markdown files" t)
+(add-to-list 'auto-mode-alist '("\\.text\\'" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+
+;;;; Use google-chrome ;;;;
+(setq browse-url-browser-function 'browse-url-generic
+      browse-url-generic-program "google-chrome")
+
+;;;; JavaScripte ;;;;
+(setq js-indent-level 2)
+;;;; JSON ;;;;
+(add-to-list 'auto-mode-alist '("\\.json\\'" . js-mode))
+
+
+;;;; Google Protobuf ;;;
+(add-to-list 'load-path "~/.emacs.d/plugins/protobuf")
+(require 'protobuf-mode)
+(setq auto-mode-alist  (cons '(".proto$" . protobuf-mode) auto-mode-alist))
+
+
+;;;; nesC mode ;;;;
+(add-to-list 'load-path "~/.emacs.d/plugins/nesc")
+(setq load-path (cons (expand-file-name "X") load-path))
+(autoload 'nesc-mode "nesc.el")
+(add-to-list 'auto-mode-alist '("\\.nc\\'" . nesc-mode))
+
+;;;; smart indent ;;;;
+(add-to-list 'load-path "~/.emacs.d/plugins/smarttab")
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; C/CC Mode
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; ellemtel kernel style 
+(setq c-default-style "ellemtel")
+
+;; #if 0 change color
+(defun my-c-mode-font-lock-if0 (limit)
+  (save-restriction
+    (widen)
+    (save-excursion
+      (goto-char (point-min))
+      (let ((depth 0) str start start-depth)
+        (while (re-search-forward "^\\s-*#\\s-*\\(if\\|else\\|endif\\)" limit 'move)
+          (setq str (match-string 1))
+          (if (string= str "if")
+              (progn
+                (setq depth (1+ depth))
+                (when (and (null start) (looking-at "\\s-+0"))
+                  (setq start (match-end 0)
+                        start-depth depth)))
+            (when (and start (= depth start-depth))
+              (c-put-font-lock-face start (match-beginning 0) 'font-lock-comment-face)
+              (setq start nil))
+            (when (string= str "endif")
+              (setq depth (1- depth)))))
+        (when (and start (> depth 0))
+          (c-put-font-lock-face start (point) 'font-lock-comment-face)))))
+  nil)
+
+(defun my-c-mode-common-hook ()
+  (font-lock-add-keywords
+   nil
+   '((my-c-mode-font-lock-if0 (0 font-lock-comment-face prepend))) 'add-to-end))
+
+(add-hook 'c-mode-common-hook 'my-c-mode-common-hook)
+(add-hook 'nesc-mode-hook 'my-c-mode-common-hook)
