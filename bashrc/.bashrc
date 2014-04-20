@@ -76,7 +76,7 @@ if [ -x /usr/bin/dircolors ]; then
     #alias dir='dir --color=auto'
     #alias vdir='vdir --color=auto'
 
-    alias grep='grep --color=auto'
+    alias grep='grep --color=auto --exclude-dir=.git'
     alias fgrep='fgrep --color=auto'
     alias egrep='egrep --color=auto'
 fi
@@ -111,8 +111,8 @@ fi
 
 
 # load cisstvars.sh if exist
-if [ -f ~/dev/cisst/build/cisstvars.sh ]; then
-    . ~/dev/cisst/build/cisstvars.sh
+if [ -f ~/dev/cisst/build/cisst/cisstvars.sh ]; then
+    . ~/dev/cisst/build/cisst/cisstvars.sh
 fi
 
 
@@ -122,6 +122,18 @@ if [ -f /usr/local/uDrawGraph-3.1/README.txt ]; then
     export PATH=$PATH:/usr/local/uDrawGraph-3.1/bin
 fi
 
+# bbapi
+if [ -f /usr/local/isi_bbapi-1.0.16-Linux/lib/libisi_bbapi.a ]; then
+    export PATH=$PATH:/usr/local/isi_bbapi-1.0.16-Linux/bin
+fi
+
+
+# google app engine
+if [ -f ~/dev/google_appengine/README ]; then
+    export PATH=$PATH:~/dev/google_appengine
+fi
+
+
 
 # .bash_zihan
 if [ -f ~/.bash_zihan ]; then
@@ -130,21 +142,20 @@ fi
 
 
 
-# ROS RELATED
-#source /opt/ros/fuerte/setup.bash
-#source ~/fuerte/setup.bash
-
-if [ -f ~/ros/groovy/setup.bash ]; then
-    source ~/ros/groovy/setup.bash
-    export ROS_WORKSPACE=~/ros/groovy
-    alias rosresetup="source ~/ros/groovy/setup.bash"
+# ROS RELATED HYDRO
+# source /opt/ros/hydro/setup.bash
+if [ -f ~/ros/catkin_ws/devel/setup.bash ]; then
+    source ~/ros/catkin_ws/devel/setup.bash
+    export ROS_WORKSPACE=~/ros/catkin_ws/
 fi
 
+
+alias rosresetup="source ./devel/setup.bash"
 
 export EDITOR='emacs -nw'
 export ROS_PARALLEL_JOBS='-j6 -l6'
 # export ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH:~/dev/wyvern_lair
-# export ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH:~/dev/wyvern_lair/ros
+# export ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH:~/ros/raven2/raven_2_msgs
 
 # LAIR 
 # export LAIR_CONFIG_PATH=~/dev/wyvern_lair/lair/config
@@ -154,15 +165,22 @@ export ROS_PARALLEL_JOBS='-j6 -l6'
 
 
 # ROS Setting
-export ROS_PACKAGE_PATH=/home/$USER/wall/ros_common:/home/$USER/wall/lair_workspace:$ROS_PACKAGE_PATH
-export ROS_PACKAGE_PATH=/home/zihan/dev/cisst/source/saw/components/sawROS:$ROS_PACKAGE_PATH
+# export ROS_PACKAGE_PATH=/home/$USER/wall/ros_common:/home/$USER/wall/lair_workspace:$ROS_PACKAGE_PATH
+# export ROS_PACKAGE_PATH=/home/zihan/dev/cisst/source/saw/components/sawROS:$ROS_PACKAGE_PATH
 
+
+# ----- Single Machine -------
+# export ROS_HOSTNAME=localhost
+# export ROS_MASTER_URI=http://localhost:11311
+
+
+# ----- Multiple Machine -----
+# export ROS_MASTER_URI=http://10.162.34.103:11311
+export ROS_MASTER_URI=http://localhost:11311
+export ROS_HOSTNAME=$(ifconfig  | grep 'inet addr:'| grep -v '127.0.0.1' | cut -d: -f2 | awk '{ print $1}')
 
 # export ROS_HOME=/home/$USER/.ros
-#export ROS_IP=10.164.225.245
-# export ROS_IP=$(ifconfig  | grep 'inet addr:'| grep -v '127.0.0.1' | cut -d: -f2 | awk '{ print $1}')
-export ROS_HOSTNAME=localhost
-# export ROS_MASTER_URI=http://10.162.34.52:11311
+
 
 # LAIR Setting
 export LAIR_CONFIG_PATH=/home/$USER/wall/lair_workspace/lair_dev/lair_platform/config
@@ -214,3 +232,59 @@ function loadXilinx() {
 
 # for emacs color in terminal
 export TERM=xterm-256color
+
+# {{{
+# Node Completion - Auto-generated, do not touch.
+shopt -s progcomp
+for f in $(command ls ~/.node-completion); do
+  f="$HOME/.node-completion/$f"
+  test -f "$f" && . "$f"
+done
+# }}}
+
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+
+
+
+# TinyOS
+function loadTinyOS() {
+    # Here we setup the environment
+    # variables needed by the tinyos
+    # make system
+
+    export TOSROOT="/home/zihan/dev/fall13/embedded/tinyos-main"
+    export TOSDIR="$TOSROOT/tos"
+    export CLASSPATH=$CLASSPATH:$TOSROOT/support/sdk/java
+    export MAKERULES="$TOSROOT/support/make/Makerules"
+    export PYTHONPATH=$PYTHONPATH:$TOSROOT/support/sdk/python
+
+    echo "setting up TinyOS on source path $TOSROOT"
+}
+
+function tbb() {
+    # Here we setup the environment
+    make telosb
+}
+
+function tbi1() {
+    # Here we setup the environment
+    make telosb install, 1
+}
+
+function tbi2() {
+    # Here we setup the environment
+    make telosb reinstall bsl,/dev/ttyUSB0
+    make telosb reinstall bsl,/dev/ttyUSB1
+}
+
+function showCRLF() {
+    echo "find  /core/sites/all/modules -type f -exec dos2unix {} +"
+}
+
+# OpenSceneGraph
+export OSG_FILE_PATH=~/dev/osgbullet/source/data/:~/dev/osgqsg/source/Data/:~/dev/osgbeginnerguide/source/data/
+export OSG_FILE_PATH=$OSG_FILE_PATH:~/dev/osgworks/source/data/:~/dev/osg-data/
+
+
+
+
