@@ -19,3 +19,5 @@ Folders:
     - backup of .emacs file
  - /bash
     - backup of .bashrc & .bash_aliases file
+- /i3
+    - i3wm config files 
