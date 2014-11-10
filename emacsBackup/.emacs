@@ -314,14 +314,14 @@
 
 
 ;;; doxymacs support
-(require 'doxymacs)
-(add-hook 'c-mode-common-hook 'doxymacs-mode)
-(defun my-doxymacs-font-lock-hook ()
-  (if (or (eq major-mode 'c-mode) (eq major-mode 'c++-mode))
-      (doxymacs-font-lock)))
-(add-hook 'font-lock-mode-hook 'my-doxymacs-font-lock-hook)
-(setq doxymacs-doxygen-style "Qt")
-(setq user-mail-address "zihan.chen@jhu.edu")  ;; default email
+;; (require 'doxymacs)
+;; (add-hook 'c-mode-common-hook 'doxymacs-mode)
+;; (defun my-doxymacs-font-lock-hook ()
+;;   (if (or (eq major-mode 'c-mode) (eq major-mode 'c++-mode))
+;;       (doxymacs-font-lock)))
+;; (add-hook 'font-lock-mode-hook 'my-doxymacs-font-lock-hook)
+;; (setq doxymacs-doxygen-style "Qt")
+;; (setq user-mail-address "zihan.chen@jhu.edu")  ;; default email
 
 
 ;;; Recent opened file
@@ -362,23 +362,23 @@
 
 ;;;;;;;;;;;;;;;; Python ;;;;;;;;;;;;;;;;;;;;;;
 
-(autoload 'python-mode "python-mode" "Python Mode." t)
+;; (autoload 'python-mode "python-mode" "Python Mode." t)
 
-(add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode))
-(add-to-list 'interpreter-mode-alist '("python" . python-mode))
-(require 'python-mode)
-(autoload 'pymacs-apply "pymacs")
-(autoload 'pymacs-call "pymacs")
-(autoload 'pymacs-eval "pymacs" nil t)
-(autoload 'pymacs-exec "pymacs" nil t)
-(autoload 'pymacs-load "pymacs" nil t)
+;; (add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode))
+;; (add-to-list 'interpreter-mode-alist '("python" . python-mode))
+;; (require 'python-mode)
+;; (autoload 'pymacs-apply "pymacs")
+;; (autoload 'pymacs-call "pymacs")
+;; (autoload 'pymacs-eval "pymacs" nil t)
+;; (autoload 'pymacs-exec "pymacs" nil t)
+;; (autoload 'pymacs-load "pymacs" nil t)
 
 ;;; ropemacs mode
-(setq ropemacs-enable-shortcuts nil)
-(setq ropemacs-local-prefix "C-c C-p")
-(require 'pymacs)
-(pymacs-load "ropemacs" "rope-")
-(setq ropemacs-enable-autoimport t)
+;; (setq ropemacs-enable-shortcuts nil)
+;; (setq ropemacs-local-prefix "C-c C-p")
+;; (require 'pymacs)
+;; (pymacs-load "ropemacs" "rope-")
+;; (setq ropemacs-enable-autoimport t)
 
 
 
@@ -392,11 +392,11 @@
 ;; (yas/load-directory "~/.emacs.d/snippets")
 ;; (yas/load-directory "~/.emacs.d/plugins/yasnippet/snippets")
 
-(add-to-list 'load-path "~/.emacs.d/plugins/jade")
-(require 'sws-mode)
-(require 'jade-mode)
-(add-to-list 'auto-mode-alist '("\\.styl$" . sws-mode))
-(add-to-list 'auto-mode-alist '("\\.jade$" . jade-mode))
+;; (add-to-list 'load-path "~/.emacs.d/plugins/jade")
+;; (require 'sws-mode)
+;; (require 'jade-mode)
+;; (add-to-list 'auto-mode-alist '("\\.styl$" . sws-mode))
+;; (add-to-list 'auto-mode-alist '("\\.jade$" . jade-mode))
 
 
 (setq scroll-step            1
@@ -484,9 +484,9 @@
 
 
 ;;;; Google Protobuf ;;;
-(add-to-list 'load-path "~/.emacs.d/plugins/protobuf")
-(require 'protobuf-mode)
-(setq auto-mode-alist  (cons '(".proto$" . protobuf-mode) auto-mode-alist))
+;; (add-to-list 'load-path "~/.emacs.d/plugins/protobuf")
+;; (require 'protobuf-mode)
+;; (setq auto-mode-alist  (cons '(".proto$" . protobuf-mode) auto-mode-alist))
 
 
 ;;;; nesC mode ;;;;
