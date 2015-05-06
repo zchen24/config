@@ -311,6 +311,7 @@
 (setq TeX-auto-save t)
 (add-hook 'LaTeX-mode-hook 'visual-line-mode)
 (add-hook 'LaTeX-mode-hook 'my-tex-mode-hook)
+(add-hook 'LaTeX-mode-hook #'turn-on-flyspell)
 
 
 ;;; doxymacs support
@@ -538,3 +539,11 @@
 
 (add-hook 'c-mode-common-hook 'my-c-mode-common-hook)
 (add-hook 'nesc-mode-hook 'my-c-mode-common-hook)
+
+
+
+;;; neo-tree
+;(add-to-list 'load-path "~/.emacs.d/neotree")
+;(require 'neotree)
+;(global-set-key [f8] 'neotree-toggle)
+
