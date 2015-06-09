@@ -1,4 +1,14 @@
 ;;;;;;;;; Environment Setup ;;;;;;
+;; Outline
+;; - Basic setup
+;; - Packages
+;;   - tabbar
+;;   - cmake 
+;;   - neotree
+;;   - YASnippet
+;;   - Backup (not currently used)
+;;   - color theme
+;;   - cygwin mount
 
 ;;;;;;;;;;;; Emacs Basic Setting ;;;;;;;;
 
@@ -18,7 +28,6 @@
 (mouse-avoidance-mode 'animate)
 
 
-
 ;;;;;;;;;; Spell Checking ;;;;;;;;;
 (setq-default ispell-program-name "aspell")
 
@@ -33,11 +42,15 @@
 (setq line-number-mode t)
 (global-linum-mode t)
 
+;;;;; Scroll 1 line at a time
+(setq scroll-step            1
+      scroll-conservatively  10000)
+
 
 ;;;;;; Emacs Window Size ;;;;;;;;;;
 (setq default-frame-alist 
       '((height . 50) (width . 100)
-        ;; (top . 1) (left . 1)
+        (top . 1) (left . 800)
         ))
 
 
@@ -54,41 +67,32 @@
 
 
 ;; delete scroll bar
-(scroll-bar-mode nil)
-(tool-bar-mode nil)
+(scroll-bar-mode 1)
+(tool-bar-mode -1)
 
 ;; set auto column change
 (global-set-key (kbd "C-c q") 'auto-fill-mode)
 (global-set-key (kbd "C-c p") 'fill-paragraph)
 (setq default-fill-column 80)
 
+;;;;;;;;;; Uncomment ;;;;;;;;;;;;;;;
+(global-set-key "\C-c\C-c" 'comment-region)
+(global-set-key "\C-c\C-y" 'uncomment-region)
+(fset 'cmr 'comment-region)
 
+;;;;;;;;;;; Shortcut Keys ;;;;;;;;;;
+(global-set-key [f5] 'compile)
+(global-set-key [f8] 'calendar)
+(global-set-key [f9] 'list-bookmarks)
+(global-set-key [f10] 'speedbar)
+;(global-set-key [f11] 'todo-mode)
 
-; Zihan 2012-07-07
-; Note: will not use
-;;;;;;;;;;; Todo ;;;;;;;;;;;;;;;;;;;;
-;(setq todo-file-do "~/.emacs.d/todo-do")
-;(setq todo-file-done "~/.emacs.d/todo-done")
-;(setq todo-file-top "~/.emacs.d/todo-top")
-;;;;;;;;;;; Diary ;;;;;;;;;;;;;;;;;;;;;
-;(setq diary-file "~/.emacs.d/diary")
-;(setq diary-
-;;;;;;;;;;; Appointment ;;;;;;;;;;;;;;;;
-;(setq appt-issue-message t)
-
-
-
-
-
-;;;;;;;;;; CEDET Setup ;;;;;;;;;;;;;
-;(load-file "~/.emacs.d/cedet-1.1/common/cedet.el")
-;(global-ede-mode 1)   ; Enable proj management sys
-;(semantic-load-enable-code-helpers) ;prototype help smart completion
-;(global-srecode-minor-mode 1)  ;template insertion menu     
-;(require 'semantic-ia)
-
-
-
+;;; Recent opened file
+(require 'recentf)
+(recentf-mode 1)
+(setq recentf-max-menu-items 25)
+(global-set-key "\C-c\ \C-r" 'recentf-open-files)
+(fset 'rof 'recentf-open-files)
 
 
 ;;;;;;;;;;; Autopair (){}[] ;;;;;;;;;
@@ -108,8 +112,8 @@
   (local-set-key (kbd "{") 'skeleton-pair-insert-maybe)
   (local-set-key (kbd "`") 'skeleton-pair-insert-maybe)
   (local-set-key (kbd "[") 'skeleton-pair-insert-maybe))
-;(add-hook 'c-mode-hook 'my-c-mode-auto-pair)
-;(add-hook 'c++-mode-hook 'my-c-mode-auto-pair)
+;; (add-hook 'c-mode-hook 'my-c-mode-auto-pair)
+;; (add-hook 'c++-mode-hook 'my-c-mode-auto-pair)
 
 
 
@@ -215,86 +219,32 @@
 ;;;;;;;;;;;;;;;  PLUGIN  ;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;;;;;;;;;;; tarbar.el ;;;;;;;;;;;;;;;
-;; tarbar.el plugin path
-(add-to-list 'load-path "~/.emacs.d/")
-;; open tabbar mode
-(require 'tabbar)
-(tabbar-mode t)
-;; customized code for buffer groups)
-
-;; setup related shortcut tab
-(global-set-key (kbd "<C-tab>") 'tabbar-forward)
-(global-set-key (kbd "<C-S-iso-lefttab>") 'tabbar-backward)
-;; tabbar group
-(global-set-key (kbd "C-x C-<right>") 'tabbar-forward-group)
-(global-set-key (kbd "C-x C-<left>") 'tabbar-backward-group)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tabbar 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; (add-to-list 'load-path "~/.emacs.d/pkgs/tabbar")
+;; (require 'tabbar)
+;; (tabbar-mode t)
+;; (global-set-key (kbd "<C-tab>") 'tabbar-forward)
+;; (global-set-key (kbd "<C-S-iso-lefttab>") 'tabbar-backward)
+;; (global-set-key (kbd "C-x C-<right>") 'tabbar-forward-group)
+;; (global-set-key (kbd "C-x C-<left>") 'tabbar-backward-group)
 
 
-
-;;;;;;;;;;;; color-theme.el ;;;;;;;;;;;;
-;; color theme
-(require 'color-theme)
-(color-theme-initialize)
-(color-theme-calm-forest)
-
-
-;;;;;;;;;;;;; autopair.el ;;;;;;;;;;;;;;
-;(require 'autopair)
-;(autopair-mode t)
-
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;  mew-emacs setup  ;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(autoload 'mew "mew" nil t)
-(autoload 'mew-send "mew" nil t)
-
-;; Optional setup (Read Mail menu for Emacs 21):
-(if (boundp 'read-mail-command)
-    (setq read-mail-command 'mew))
-
-;; Optional setup (e.g. C-xm for sending a message):
-(autoload 'mew-user-agent-compose "mew" nil t)
-(if (boundp 'mail-user-agent)
-    (setq mail-user-agent 'mew-user-agent))
-(if (fboundp 'define-mail-user-agent)
-    (define-mail-user-agent
-      'mew-user-agent
-      'mew-user-agent-compose
-      'mew-draft-send-message
-      'mew-draft-kill
-      'mew-send-hook))
-
-
-;;;;;;; Add Support for CMakeLists.txt;;;;
-;;;;;;;;;;;; Cmake-mode.el ;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; CMake
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(add-to-list 'load-path "~/.emacs.d/pkgs/cmake-mode")
 (require 'cmake-mode)
 (setq auto-mode-alist
-       (append '(("CMakeLists\\.txt\\'" . cmake-mode)
-                 ("\\.cmake\\'" . cmake-mode))
-               auto-mode-alist))
+      (append '(("CMakeLists\\.txt\\'" . cmake-mode)
+                ("\\.cmake\\'" . cmake-mode))
+              auto-mode-alist))
 
 
-;;;;;;;;;; Uncomment ;;;;;;;;;;;;;;;
-(global-set-key "\C-c\C-c" 'comment-region)
-(global-set-key "\C-c\C-y" 'uncomment-region)
-(fset 'cmr 'comment-region)
-
-;;;;;;;;;;; Shortcut Keys ;;;;;;;;;;
-(global-set-key [f5] 'compile)
-(global-set-key [f8] 'calendar)
-(global-set-key [f9] 'list-bookmarks)
-(global-set-key [f10] 'speedbar)
-;(global-set-key [f11] 'todo-mode)
-
-
-
-
-
-
-;;; For Tex-View use Okular
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Latex
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (setq TeX-view-program-list
       (quote (("Okular" "okular -unique %o#src:%n%b"))))
 
@@ -325,13 +275,6 @@
 ;; (setq user-mail-address "zihan.chen@jhu.edu")  ;; default email
 
 
-;;; Recent opened file
-(require 'recentf)
-(recentf-mode 1)
-(setq recentf-max-menu-items 25)
-(global-set-key "\C-c\ \C-r" 'recentf-open-files)
-(fset 'rof 'recentf-open-files)
-
 
 ;;; c-perl mode 
 (defalias 'perl-mode 'cperl-mode)
@@ -344,24 +287,9 @@
 
 
 
-;;;;;;;;;;;;;; Auto-complete ;;;;;;;;;;;;;;;
-
-;;; auto-complete mode
-; Tutorial:
-; http://www.youtube.com/watch?v=rGVVnDxwJYE
-(add-to-list 'load-path "~/.emacs.d/")
-(require 'auto-complete-config)
-(add-to-list 'ac-dictionary-directories "~/.emacs.d//ac-dict")
-(ac-config-default)
-; key-binding
-;(define-key ac-mode-map (kbd "M-/") 'auto-complete )
-
-(require 'auto-complete)
-(setq global-auto-complete-mode t)
-
-
-
-;;;;;;;;;;;;;;;; Python ;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Python
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; (autoload 'python-mode "python-mode" "Python Mode." t)
 
@@ -382,30 +310,10 @@
 ;; (setq ropemacs-enable-autoimport t)
 
 
-
-;; ;;;;;;;;;;;;;;; YASnippet ;;;;;;;;;;;;;;;;;;;;;;
-;; (add-to-list 'load-path "~/.emacs.d/plugins/yasnippet")
-;; (require 'yasnippet)
-;; (yas-global-mode 1)
-
-;; ; personal snippet
-;; (setq yas/root-directory "~/.emacs.d/snippets")
-;; (yas/load-directory "~/.emacs.d/snippets")
-;; (yas/load-directory "~/.emacs.d/plugins/yasnippet/snippets")
-
-;; (add-to-list 'load-path "~/.emacs.d/plugins/jade")
-;; (require 'sws-mode)
-;; (require 'jade-mode)
-;; (add-to-list 'auto-mode-alist '("\\.styl$" . sws-mode))
-;; (add-to-list 'auto-mode-alist '("\\.jade$" . jade-mode))
-
-
-(setq scroll-step            1
-      scroll-conservatively  10000)
-
-
-
-;;;;;;;;;;;;;; MATLAB ;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; MATLAB
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(add-to-list 'load-path "~/.emacs.d/pkgs/matlab-mode")
 (autoload 'matlab-mode "matlab" "Matlab Editing Mode" t)
 (add-to-list
  'auto-mode-alist
@@ -429,35 +337,24 @@
   (aset buffer-display-table ?\^M []))
 
 
-
-;;;;;;;;;;;; Ros emacs ;;;;;;;;;;;;;;;
-;; Load the library and start it up
-(require 'rosemacs)
-(invoke-rosemacs)
-
-;; Optional but highly recommended: add a prefix for quick access
-;; to the rosemacs commands
-(global-set-key "\C-x\C-r" ros-keymap)
-
-(custom-set-variables
-  ;; custom-set-variables was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
- '(rng-schema-locating-files
-   (quote ("/usr/share/emacs/site-lisp/rosemacs-el//rng-schemas.xml"
-           "schemas.xml"
-           "/usr/share/emacs/23.3/etc/schema/schemas.xml"))))
-
-(custom-set-faces
-  ;; custom-set-faces was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
- )
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ido mode 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(require 'ido)
+(ido-mode t)
 
 
-;;;; switch between header/source file ;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; neotree
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(add-to-list 'load-path "~/.emacs.d/pkgs/neotree")
+(require 'neotree)
+(global-set-key [f8] 'neotree-toggle)
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; c/c++ header/source toggle
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (add-hook 'c-mode-common-hook
           (lambda()
             (local-set-key  (kbd "C-c o") 'ff-find-other-file)))
@@ -466,84 +363,104 @@
       '("." "../src" "../../src" "../include"))
 
 
-
-;;;; Markdown files ;;;;
-(autoload 'markdown-mode "markdown-mode"
-  "Major mode for editing Markdown files" t)
-(add-to-list 'auto-mode-alist '("\\.text\\'" . markdown-mode))
-(add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
-(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
-
-;;;; Use google-chrome ;;;;
-(setq browse-url-browser-function 'browse-url-generic
-      browse-url-generic-program "google-chrome")
-
-;;;; JavaScripte ;;;;
-(setq js-indent-level 2)
-;;;; JSON ;;;;
-(add-to-list 'auto-mode-alist '("\\.json\\'" . js-mode))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;  Packages Control
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(require 'package)
+(add-to-list 'package-archives
+             '("melpa" . "http://melpa.org/packages/") t)
 
 
-;;;; Google Protobuf ;;;
-;; (add-to-list 'load-path "~/.emacs.d/plugins/protobuf")
-;; (require 'protobuf-mode)
-;; (setq auto-mode-alist  (cons '(".proto$" . protobuf-mode) auto-mode-alist))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;  auto-complete
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Tutorial:
+;; http://www.youtube.com/watch?v=rGVVnDxwJYE
+(add-to-list 'load-path "~/.emacs.d/pkgs/auto-complete")
+(add-to-list 'load-path "~/.emacs.d/pkgs/auto-complete-c-headers")
+(add-to-list 'load-path "~/.emacs.d/pkgs/popup")
+(add-to-list 'load-path "~/.emacs.d/pkgs/iedit")
 
+(require 'auto-complete)
+(require 'auto-complete-config)
+(ac-config-default)
 
-;;;; nesC mode ;;;;
-(add-to-list 'load-path "~/.emacs.d/plugins/nesc")
-(setq load-path (cons (expand-file-name "X") load-path))
-(autoload 'nesc-mode "nesc.el")
-(add-to-list 'auto-mode-alist '("\\.nc\\'" . nesc-mode))
+;; ;;; ac c headers
+;; (defun my:ac-c-header-init ()
+;;   (require 'auto-complete-c-headers)
+;;   (add-to-list 'ac-sources 'ac-source-c-headers))
+;; (add-hook 'c++-mode-hook 'my:ac-c-header-init)
+;; (add-hook 'c-mode-hook 'my:ac-c-header-init)
 
-;;;; smart indent ;;;;
-(add-to-list 'load-path "~/.emacs.d/plugins/smarttab")
-
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; C/CC Mode
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;; ellemtel kernel style 
-(setq c-default-style "ellemtel")
-
-;; #if 0 change color
-(defun my-c-mode-font-lock-if0 (limit)
-  (save-restriction
-    (widen)
-    (save-excursion
-      (goto-char (point-min))
-      (let ((depth 0) str start start-depth)
-        (while (re-search-forward "^\\s-*#\\s-*\\(if\\|else\\|endif\\)" limit 'move)
-          (setq str (match-string 1))
-          (if (string= str "if")
-              (progn
-                (setq depth (1+ depth))
-                (when (and (null start) (looking-at "\\s-+0"))
-                  (setq start (match-end 0)
-                        start-depth depth)))
-            (when (and start (= depth start-depth))
-              (c-put-font-lock-face start (match-beginning 0) 'font-lock-comment-face)
-              (setq start nil))
-            (when (string= str "endif")
-              (setq depth (1- depth)))))
-        (when (and start (> depth 0))
-          (c-put-font-lock-face start (point) 'font-lock-comment-face)))))
-  nil)
-
-(defun my-c-mode-common-hook ()
-  (font-lock-add-keywords
-   nil
-   '((my-c-mode-font-lock-if0 (0 font-lock-comment-face prepend))) 'add-to-end))
-
-(add-hook 'c-mode-common-hook 'my-c-mode-common-hook)
-(add-hook 'nesc-mode-hook 'my-c-mode-common-hook)
+;; key-binding
+(define-key ac-mode-map (kbd "M-/") 'auto-complete )
+(setq global-auto-complete-mode t)
 
 
 
-;;; neo-tree
-;(add-to-list 'load-path "~/.emacs.d/neotree")
-;(require 'neotree)
-;(global-set-key [f8] 'neotree-toggle)
+;; ;; ;;;;;;;;;;;;;;; YASnippet ;;;;;;;;;;;;;;;;;;;;;;
+(add-to-list 'load-path "~/.emacs.d/pkgs/yasnippet")
+(require 'yasnippet)
+(yas-global-mode 1)
 
+
+;;;;;;;;;;;;;;;;; Flymake ;;;;;;;;;;;;;;;;;;;;;;
+(add-to-list 'load-path "~/.emacs.d/pkgs/flymake-easy")
+(add-to-list 'load-path "~/.emacs.d/pkgs/flymake-cursor")
+(add-to-list 'load-path "~/.emacs.d/pkgs/flymake-google-cpplint")
+
+(defun my:flymake-google-cpplint-init ()
+  (require 'flymake-google-cpplint)
+  (custom-set-variables '(flymake-google-cpplint-command
+                          "c:\cygwin\bin\cpplint"))
+  (flymake-google-cpplint-load))
+(add-hook 'c++-mode-hook 'my:flymake-google-cpplint-init)
+(add-hook 'c-mode-hook 'my:flymake-google-cpplint-init)
+
+
+;;;;;;;;;;;;;;;;; Flymake ;;;;;;;;;;;;;;;;;;;;;;
+(add-to-list 'load-path "~/.emacs.d/pkgs/google-c-style")
+(require 'google-c-style)
+(add-hook 'c-mode-common-hook 'google-set-c-style)
+;; (add-hook 'c-mode-common-hook 'google-make-newline-indent)
+
+
+;;;;;;;;;;;;;;;;; CEDET ;;;;;;;;;;;;;;;;;;;;;;
+(semantic-mode 1)
+(global-semantic-idle-scheduler-mode 1)
+(defun my:add-semantic-to-autocomplete()
+  (add-to-list 'ac-sources 'ac-source-semantic))
+(add-hook 'c-mode-common-hook 'my:add-semantic-to-autocomplete)
+
+
+;;;;;;;;;;;; color-theme ;;;;;;;;;;;;
+(add-to-list 'load-path "~/.emacs.d/pkgs/color-theme")
+(require 'color-theme)
+(color-theme-initialize)
+(color-theme-calm-forest)
+
+
+;;;;;;;;;;;; cygwin-mount ;;;;;;;;;;;;
+(add-to-list 'load-path "~/.emacs.d/pkgs/cygwin-mount")
+(setq *win32* (eq system-type 'windows-nt) )
+;; win32 auto configuration, assuming that cygwin is installed at "c:/cygwin"
+(if *win32*
+    (progn
+      (setq cygwin-mount-cygwin-bin-directory "c:/cygwin/bin")
+      (require 'setup-cygwin)
+    ;(setenv "HOME" "c:/cygwin/home/someuser") ;; better to set HOME env in GUI
+      ))
+
+
+
+; Zihan 2012-07-07
+; Note: will not use
+;;;;;;;;;;; Todo ;;;;;;;;;;;;;;;;;;;;
+;(setq todo-file-do "~/.emacs.d/todo-do")
+;(setq todo-file-done "~/.emacs.d/todo-done")
+;(setq todo-file-top "~/.emacs.d/todo-top")
+;;;;;;;;;;; Diary ;;;;;;;;;;;;;;;;;;;;;
+;(setq diary-file "~/.emacs.d/diary")
+;(setq diary-
+;;;;;;;;;;; Appointment ;;;;;;;;;;;;;;;;
+;(setq appt-issue-message t)

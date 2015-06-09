@@ -4,5 +4,5 @@
 # dir(~) to current dir 
 
 cp ~/.emacs ./.emacs
-cp -R ~/.emacs.d ./
+cp -R ~/.emacs.d/pkgs ./.emacs.d/pkgs
 
