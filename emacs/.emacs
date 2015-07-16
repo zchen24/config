@@ -70,7 +70,7 @@
 ;;  Packages Control
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; list the packages you want
-(setq package-list '(matlab-mode color-theme jedi yasnippet neotree cygwin-mount))
+(setq package-list '(matlab-mode color-theme jedi yasnippet neotree cygwin-mount monokai-theme))
 
 (require 'package)
 (add-to-list 'package-archives
@@ -92,8 +92,9 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;; color-theme ;;;;;;
-(color-theme-initialize)
+;; (color-theme-initialize)
 ;; (color-theme-calm-forest)
+(load-theme 'monokai t)
 
 ;;;;; neotree
 (require 'neotree)
