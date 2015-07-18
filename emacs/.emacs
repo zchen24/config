@@ -135,3 +135,8 @@
       (require 'setup-cygwin)
     ;(setenv "HOME" "c:/cygwin/home/someuser") ;; better to set HOME env in GUI
       ))
+      
+;;;;; chines input ;;;;;;
+;; (require 'chinese-pyim)
+;; (setq-default pyim-page-length 9)
+;; (setq default-input-method "chinese-pyim")
