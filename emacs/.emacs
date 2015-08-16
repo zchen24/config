@@ -63,6 +63,15 @@
 (global-set-key (kbd "C-c p") 'fill-paragraph)
 (setq default-fill-column 80)
 
+;;;; switch between header/source file ;;;;;
+(add-hook 'c-mode-common-hook
+          (lambda()
+            (local-set-key  (kbd "C-c o") 'ff-find-other-file)))
+
+(setq ff-search-directories
+      '("." "../src" "../../src" "../include"))
+
+
 ;;;;;;;;;;; Shortcut Keys ;;;;;;;;;;
 (global-set-key [f9] 'list-bookmarks)
 
