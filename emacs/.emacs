@@ -76,10 +76,10 @@
 (global-set-key [f9] 'list-bookmarks)
 
 ;;;;; window management ;;;;;;
-(global-set-key (kbd "<C-up>") 'shrink-window)
-(global-set-key (kbd "<C-down>") 'enlarge-window)
-(global-set-key (kbd "<C-left>") 'shrink-window-horizontally)
-(global-set-key (kbd "<C-right>") 'enlarge-window-horizontally)
+(global-set-key (kbd "C-c <up>")   'shrink-window)                                           
+(global-set-key (kbd "C-c <down>") 'enlarge-window)                                        
+(global-set-key (kbd "C-c <left>")  'enlarge-window-horizontally)                           
+(global-set-key (kbd "C-c <right>") 'shrink-window-horizontally)     
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;  Packages Control
