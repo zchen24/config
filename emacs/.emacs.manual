@@ -16,6 +16,10 @@
 ;;   - monokai-theme 
 ;; - copy elpa folder as pkgs 
 ;; - rename elpa as elpa.bak (auto-complete conflict)
+;; - auto-complete pkg
+;;   - download 1.3.1 version
+;;   - load-file /path/to/auto-complete/etc/install.el 
+;;   - install path is .emacs.d
 ;; 
 ;; Folder Structure after install 
 ;; ~/.emacs
