@@ -133,6 +133,30 @@
 
 
 
+;;;;;;;;;;;;;;;; Python ;;;;;;;;;;;;;;;;;;;;;;
+;; python mode based on pymacs & ropemacs 
+;; compared with jade, it provides better refactoring feature
+;; this snippet is listed here as a backup option 
+
+;; (autoload 'python-mode "python-mode" "Python Mode." t)
+
+;; (add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode))
+;; (add-to-list 'interpreter-mode-alist '("python" . python-mode))
+;; (require 'python-mode)
+;; (autoload 'pymacs-apply "pymacs")
+;; (autoload 'pymacs-call "pymacs")
+;; (autoload 'pymacs-eval "pymacs" nil t)
+;; (autoload 'pymacs-exec "pymacs" nil t)
+;; (autoload 'pymacs-load "pymacs" nil t)
+
+;;; ropemacs mode
+;; (setq ropemacs-enable-shortcuts nil)
+;; (setq ropemacs-local-prefix "C-c C-p")
+;; (require 'pymacs)
+;; (pymacs-load "ropemacs" "rope-")
+;; (setq ropemacs-enable-autoimport t)
+
+
 ;;;;;; CMake ;;;;;;;;;;;;
 (setq auto-mode-alist
       (append '(("CMakeLists\\.txt\\'" . cmake-mode)
