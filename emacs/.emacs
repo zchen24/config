@@ -92,6 +92,13 @@
 ;;;;;;; set title "title@Emacs";;
 (setq frame-title-format "%b@Emacs")
 
+;;;;;;;; cursor ;;;;;;;;;;;;;;;;;
+;; (setq-default cursor-type 'bar)
+;;to set the cursor color
+;; (set-cursor-color "red")
+;; move mouse if it's close to the cursor
+(mouse-avoidance-mode 'animate)
+
 
 ;;;;;;;;;;; Shortcut Keys ;;;;;;;;;;
 (global-set-key [f9] 'list-bookmarks)
