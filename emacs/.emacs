@@ -71,6 +71,27 @@
 (setq ff-search-directories
       '("." "../src" "../../src" "../include"))
 
+;;;;;;; Tab realted setting;;;;;;;;;;
+(setq default-tab-width 4)
+(setq c-basic-offset 4)
+(setq-default indent-tabs-mode nil)
+(define-key global-map (kbd "RET") 'newline-and-indent)
+
+(defun set-4offset(&optional arg)
+  (interactive "p")
+  (setq default-tab-width 4)
+  (setq c-basic-offset 4)
+  )
+
+(defun set-2offset(&optional arg)
+  (interactive "p")
+  (setq default-tab-width 2)
+  (setq c-basic-offset 2)
+  )
+
+;;;;;;; set title "title@Emacs";;
+(setq frame-title-format "%b@Emacs")
+
 
 ;;;;;;;;;;; Shortcut Keys ;;;;;;;;;;
 (global-set-key [f9] 'list-bookmarks)
@@ -84,8 +105,15 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;  Packages Control
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; list the packages you want
-(setq package-list '(matlab-mode color-theme jedi yasnippet neotree cygwin-mount monokai-theme))
+                                        ; list the packages you want
+(setq package-list '(matlab-mode 
+                     color-theme 
+                     python-mode
+                     jedi 
+                     yasnippet 
+                     neotree 
+                     cygwin-mount 
+                     monokai-theme))
 
 (require 'package)
 (add-to-list 'package-archives
@@ -93,11 +121,11 @@
 (setq package-enable-at-startup nil)
 (package-initialize)
 
-; fetch the list of packages available 
+                                        ; fetch the list of packages available 
 (unless package-archive-contents
   (package-refresh-contents))
 
-; install the missing packages
+                                        ; install the missing packages
 (dolist (package package-list)
   (unless (package-installed-p package)
     (package-install package)))
@@ -109,7 +137,8 @@
 ;;;;;; color-theme ;;;;;;
 ;; (color-theme-initialize)
 ;; (color-theme-calm-forest)
-(load-theme 'monokai t)
+;; (load-theme 'monokai t)
+(require 'monokai-theme)
 
 ;;;;; neotree
 (require 'neotree)
@@ -164,17 +193,17 @@
               auto-mode-alist))
 
 
-;;;;;; cygwin ;;;;;;;;;;
-(add-to-list 'load-path "~/.emacs.d/pkgs")
-(setq *win32* (eq system-type 'windows-nt) )
-;; win32 auto configuration, assuming that cygwin is installed at "c:/cygwin"
-(if *win32*
-    (progn
-      (setq cygwin-mount-cygwin-bin-directory "c:/cygwin/bin")
-      (require 'setup-cygwin)
-    ;(setenv "HOME" "c:/cygwin/home/someuser") ;; better to set HOME env in GUI
-      ))
-      
+;; ;;;;;; cygwin ;;;;;;;;;;
+;; (add-to-list 'load-path "~/.emacs.d/pkgs")
+;; (setq *win32* (eq system-type 'windows-nt) )
+;; ;; win32 auto configuration, assuming that cygwin is installed at "c:/cygwin"
+;; (if *win32*
+;;     (progn
+;;       (setq cygwin-mount-cygwin-bin-directory "c:/cygwin/bin")
+;;       (require 'setup-cygwin)
+;;     ;(setenv "HOME" "c:/cygwin/home/someuser") ;; better to set HOME env in GUI
+;;       ))
+
 ;;;;; chines input ;;;;;;
 ;; (require 'chinese-pyim)
 ;; (setq-default pyim-page-length 9)
