@@ -119,7 +119,8 @@
                      jedi 
                      yasnippet 
                      neotree 
-                     cygwin-mount 
+                     cygwin-mount
+                     markdown-mode
                      monokai-theme))
 
 (require 'package)
@@ -199,6 +200,12 @@
                 ("\\.cmake\\'" . cmake-mode))
               auto-mode-alist))
 
+;;;; Markdown files ;;;;
+(autoload 'markdown-mode "markdown-mode"
+  "Major mode for editing Markdown files" t)
+(add-to-list 'auto-mode-alist '("\\.text\\'" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 
 ;; ;;;;;; cygwin ;;;;;;;;;;
 ;; (add-to-list 'load-path "~/.emacs.d/pkgs")
