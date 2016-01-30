@@ -121,6 +121,7 @@
                      neotree 
                      cygwin-mount
                      markdown-mode
+                     tabbar
                      monokai-theme))
 
 (require 'package)
@@ -206,6 +207,10 @@
 (add-to-list 'auto-mode-alist '("\\.text\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+
+;;;;;;;;;;;; tarbar ;;;;;;;;;;;;;;;
+(require 'tabbar)
+(tabbar-mode t)
 
 ;; ;;;;;; cygwin ;;;;;;;;;;
 ;; (add-to-list 'load-path "~/.emacs.d/pkgs")
