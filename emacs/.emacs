@@ -236,3 +236,14 @@
 ;; (require 'chinese-pyim)
 ;; (setq-default pyim-page-length 9)
 ;; (setq default-input-method "chinese-pyim")
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(verilog-case-indent 0)
+ '(verilog-cexp-indent 0)
+ '(verilog-highlight-grouping-keywords t)
+ '(verilog-indent-begin-after-if nil)
+ '(verilog-indent-level 4))
