@@ -252,7 +252,7 @@
 
 ;;;;; AucTeX ;;;;;
 ;; start server, so synctex can work
-(server-start)    
+(add-hook 'LaTeX-mode-hook 'server-start)
 (setq TeX-auto-save t)
 (setq TeX-parse-self t)
 (setq-default TeX-master nil)
