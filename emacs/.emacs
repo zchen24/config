@@ -288,3 +288,18 @@
 ;; (setq TeX-view-program-selection '((output-pdf "PDF Viewer")))
 ;; (setq TeX-view-program-list
 ;;      '(("PDF Viewer" "/Applications/Skim.app/Contents/SharedSupport/displayline -b -g %n %o %b")))
+
+
+;;;; UNCOMMENT for Windows ;;;;;
+;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ;; Forward/Inverse Search
+;; ;;   - Need to compile with -synctex=1 option (see .latexmkrc file)
+;; ;;   - SumatraPDF: use your install path
+;; ;;   - Reference: sumatrapdf command line arguments wiki
+;; ;;   - Inverse search requires setup in SumatraPDF
+;; ;;      "C:\Program Files (x86)\GNU Emacs 24.5\bin\emacsclientw.exe" -n +%l "%f"
+;; (setq TeX-view-program-list 
+;;  '(("Sumatra PDF" ("\"C:/Program Files/SumatraPDF/SumatraPDF.exe\" -reuse-instance -forward-search %b %n %o"))))
+
+;; (setq TeX-view-program-selection
+;;       '((output-pdf "Sumatra PDF")))
