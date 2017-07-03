@@ -11,6 +11,9 @@
 ;; 'y' for 'yes', 'n' for 'no'
 (fset 'yes-or-no-p 'y-or-n-p)
 
+;; Confirm quit
+(setq confirm-kill-emacs 'yes-or-no-p)
+
 ;; no toolbar
 (tool-bar-mode -1)
 
