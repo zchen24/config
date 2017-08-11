@@ -67,9 +67,15 @@
 (setq default-fill-column 80)
 
 ;;;; switch between header/source file ;;;;;
+; search header/source files
 (add-hook 'c-mode-common-hook
           (lambda()
-            (local-set-key  (kbd "C-c o") 'ff-find-other-file)))
+            (local-set-key  (kbd "C-c o") 'ff-get-other-file)))
+
+; ditto, and search #include
+(add-hook 'c-mode-common-hook
+          (lambda()
+            (local-set-key  (kbd "C-c i") 'ff-find-other-file)))
 
 (setq ff-search-directories
       '("." "../src" "../../src" "../include"))
@@ -135,7 +141,9 @@
                      markdown-mode
                      tabbar
                      auctex
-                     monokai-theme))
+                     monokai-theme
+                     clang-format
+                     google-c-style))
 
 (require 'package)
 (add-to-list 'package-archives
@@ -306,3 +314,7 @@
 
 ;; (setq TeX-view-program-selection
 ;;       '((output-pdf "Sumatra PDF")))
+
+;;;;; Coding Style ;;;;;
+(global-set-key (kbd "C-c C-f") (lambda () (interactive) (clang-format-buffer "Google")))
+
