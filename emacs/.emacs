@@ -143,6 +143,8 @@
                      auctex
                      monokai-theme
                      clang-format
+                     protobuf-mode
+                     qml-mode
                      google-c-style))
 
 (require 'package)
@@ -317,4 +319,20 @@
 
 ;;;;; Coding Style ;;;;;
 (global-set-key (kbd "C-c C-f") (lambda () (interactive) (clang-format-buffer "Google")))
+
+
+;; protobuf mode
+(require 'protobuf-mode)
+(defconst my-protobuf-style
+  '((c-basic-offset . 2)
+    (indent-tabs-mode . nil)))
+
+(add-hook 'protobuf-mode-hook
+          (lambda () (c-add-style "my-style" my-protobuf-style t)))
+(add-to-list 'auto-mode-alist '("\\.pb.ascii\\'" . protobuf-mode))
+
+
+;;; Qt QML ;;;
+(autoload 'qml-mode "qml-mode" "Editing Qt Declarative." t)
+(add-to-list 'auto-mode-alist '("\\.qml$" . qml-mode))
 
