@@ -4,7 +4,8 @@
 [core]
 	autocrlf = input
 	safecrlf = true
-	editor = emacs -nw
+	editor = emacs -nw	
+	excludesfile = /home/zihan/.gitignore_global
 
 [alias]
 	co = checkout
