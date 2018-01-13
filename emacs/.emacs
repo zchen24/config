@@ -135,7 +135,8 @@
                      color-theme 
                      python-mode
                      jedi 
-                     yasnippet 
+                     yasnippet
+                     yasnippet-snippets
                      neotree 
                      cygwin-mount
                      markdown-mode
