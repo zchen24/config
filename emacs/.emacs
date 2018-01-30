@@ -134,6 +134,7 @@
 (setq package-list '(matlab-mode 
                      color-theme 
                      python-mode
+                     cmake-mode
                      jedi 
                      yasnippet
                      yasnippet-snippets
