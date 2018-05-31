@@ -323,14 +323,14 @@
 
 
 ;; protobuf mode
-(require 'protobuf-mode)
-(defconst my-protobuf-style
-  '((c-basic-offset . 2)
-    (indent-tabs-mode . nil)))
+;; (require 'protobuf-mode)
+;; (defconst my-protobuf-style
+;;   '((c-basic-offset . 2)
+;;     (indent-tabs-mode . nil)))
 
-(add-hook 'protobuf-mode-hook
-          (lambda () (c-add-style "my-style" my-protobuf-style t)))
-(add-to-list 'auto-mode-alist '("\\.pb.ascii\\'" . protobuf-mode))
+;; (add-hook 'protobuf-mode-hook
+;;           (lambda () (c-add-style "my-style" my-protobuf-style t)))
+;; (add-to-list 'auto-mode-alist '("\\.pb.ascii\\'" . protobuf-mode))
 
 
 ;;; Qt QML ;;;
