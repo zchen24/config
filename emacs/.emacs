@@ -139,7 +139,6 @@
                      yasnippet
                      yasnippet-snippets
                      neotree 
-                     cygwin-mount
                      markdown-mode
                      tabbar
                      auctex
