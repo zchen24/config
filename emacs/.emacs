@@ -17,6 +17,9 @@
 ;; no toolbar
 (tool-bar-mode -1)
 
+;; show matching paren
+(show-paren-mode 1)
+
 ;; disable welcome (C-h C-a)
 (setq inhibit-startup-message t)
 
