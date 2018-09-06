@@ -81,7 +81,7 @@
             (local-set-key  (kbd "C-c i") 'ff-find-other-file)))
 
 (setq ff-search-directories
-      '("." "../src" "../../src" "../include"))
+      '("." "../src" "../../src" "../include" "../Inc" "../Src"))
 
 ;;;;;;; Tab realted setting;;;;;;;;;;
 (setq default-tab-width 4)
