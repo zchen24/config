@@ -334,3 +334,8 @@
 ;; (add-to-list 'load-path "/opt/ros/kinetic/share/emacs/site-lisp")
 ;; (require 'rosemacs-config)
 
+;;; nXML mode indentation
+(setq nxml-child-indent 4 nxml-attribute-indent 4)
+
+;;; Arduino support
+(add-to-list 'auto-mode-alist '("\\.ino$" . c-mode))
