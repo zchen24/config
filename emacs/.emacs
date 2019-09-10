@@ -123,9 +123,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;  Packages Control
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                                        ; list the packages you want
-(setq package-list '(matlab-mode 
-                     color-theme 
+; list the packages you want
+(setq package-list '(matlab-mode
                      python-mode
                      cmake-mode
                      jedi 
