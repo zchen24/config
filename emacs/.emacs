@@ -138,6 +138,7 @@
                      clang-format
                      protobuf-mode
                      qml-mode
+                     dockerfile-mode
                      google-c-style))
 
 (require 'package)
