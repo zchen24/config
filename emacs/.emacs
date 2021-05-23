@@ -31,7 +31,9 @@
 ;; show column number
 (setq column-number-mode t)
 (setq line-number-mode t)
-;; (global-linum-mode t)
+(setq linum-format "%d ")
+(global-linum-mode t)
+
 
 ;;;;;; Emacs Window Size ;;;;;;;;;;
 (setq default-frame-alist 
@@ -133,7 +135,6 @@
                      neotree 
                      markdown-mode
                      tabbar
-                     auctex
                      monokai-theme
                      clang-format
                      protobuf-mode
@@ -259,16 +260,16 @@
 
 ;;;;; AucTeX ;;;;;
 ;; start server, so synctex can work
-(add-hook 'LaTeX-mode-hook 'server-start)
-(setq TeX-auto-save t)
-(setq TeX-parse-self t)
-(setq-default TeX-master nil)
-(add-hook 'LaTeX-mode-hook 'visual-line-mode)
-(add-hook 'LaTeX-mode-hook 'flyspell-mode)
-(add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
-(add-hook 'LaTeX-mode-hook 'turn-on-reftex)
-(setq reftex-plug-into-AUCTeX t)
-(setq TeX-PDF-mode t)
+;; (add-hook 'LaTeX-mode-hook 'server-start)
+;; (setq TeX-auto-save t)
+;; (setq TeX-parse-self t)
+;; (setq-default TeX-master nil)
+;; (add-hook 'LaTeX-mode-hook 'visual-line-mode)
+;; (add-hook 'LaTeX-mode-hook 'flyspell-mode)
+;; (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
+;; (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
+;; (setq reftex-plug-into-AUCTeX t)
+;; (setq TeX-PDF-mode t)
 
 
 ;; Use Skim as viewer, enable source <-> PDF sync
