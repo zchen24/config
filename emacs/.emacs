@@ -129,7 +129,7 @@
 (setq package-list '(matlab-mode
                      python-mode
                      cmake-mode
-                     jedi 
+                     ;; jedi
                      yasnippet
                      yasnippet-snippets
                      neotree 
@@ -162,9 +162,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;; color-theme ;;;;;;
-;; (color-theme-initialize)
-;; (color-theme-calm-forest)
-;; (load-theme 'monokai t)
 (require 'monokai-theme)
 
 ;;;;; neotree
@@ -184,8 +181,8 @@
 (add-to-list 'interpreter-mode-alist '("python" . python-mode))
 
 ;; jedi python auto-complete
-(add-hook 'python-mode-hook 'jedi:setup)
-(setq jedi:complete-on-dot t)                 ; optional
+;; (add-hook 'python-mode-hook 'jedi:setup)
+;; (setq jedi:complete-on-dot t)                 ; optional
 
 
 
