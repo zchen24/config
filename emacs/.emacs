@@ -139,6 +139,7 @@
                      clang-format
                      protobuf-mode
                      qml-mode
+                     magit
                      dockerfile-mode
                      google-c-style))
 
