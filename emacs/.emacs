@@ -140,6 +140,7 @@
                      protobuf-mode
                      qml-mode
                      magit
+                     bitbake
                      dockerfile-mode
                      google-c-style))
 
